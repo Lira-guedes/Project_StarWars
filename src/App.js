@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   return (
-    <span> Planets Search </span>
+    <span> SatarWars </span>
   );
 }
 
