@@ -1,11 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Table() {
   const { planets } = useContext(PlanetsContext);
+  const [filter, setFilter] = useState('');
+
+  const filterPlanets = planets.filter((e) => e.name.toLowerCase()
+    .includes(setFilter.toLowerCase()));
+
+  const handleChange = ({ target }) => {
+    setFilter(target.value);
+  };
   return (
     <div>
       <h1> StarWars Planets Search </h1>
+      <div>
+        <input
+          type="text"
+          data-testid="name-filter"
+          value={ filter }
+          onChange={ handleChange }
+        />
+      </div>
       <table>
         <thead>
           <th>
@@ -25,7 +41,7 @@ function Table() {
           </th>
         </thead>
         <tbody>
-          { planets ? planets.map((elem) => (
+          { planets ? filterPlanets.map((elem) => (
             <tr key={ elem.name }>
               <td>{ elem.name }</td>
               <td>{ elem.rotation_period }</td>
