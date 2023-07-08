@@ -1,12 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
+import Filter from './Filters';
 
 function Table() {
   const { planets } = useContext(PlanetsContext);
   const [filter, setFilter] = useState('');
 
-  const filterPlanets = planets.filter((e) => e.name.toLowerCase()
-    .includes(setFilter.toLowerCase()));
+  const filterPlanets = planets.filter(
+    (elem) => elem.name.toLowerCase().includes(filter.toLowerCase()),
+  );
 
   const handleChange = ({ target }) => {
     setFilter(target.value);
@@ -22,6 +24,7 @@ function Table() {
           onChange={ handleChange }
         />
       </div>
+      <Filter />
       <table>
         <thead>
           <th>
@@ -41,7 +44,7 @@ function Table() {
           </th>
         </thead>
         <tbody>
-          { planets ? filterPlanets.map((elem) => (
+          { planets && filterPlanets.map((elem) => (
             <tr key={ elem.name }>
               <td>{ elem.name }</td>
               <td>{ elem.rotation_period }</td>
@@ -57,7 +60,7 @@ function Table() {
               <td>{ elem.edited }</td>
               <td>{ elem.url }</td>
             </tr>
-          )) : console.log('erro')}
+          ))}
         </tbody>
       </table>
     </div>

@@ -11,13 +11,12 @@ function App() {
     const fetch = async () => {
       const response = await fetchApi();
       setPlanets(response);
-      console.log(response);
     };
     fetch();
   }, []);
 
   return (
-    <PlanetsContext.Provider value={ { planets } }>
+    <PlanetsContext.Provider value={ { planets, setPlanets } }>
       <Table />
     </PlanetsContext.Provider>
   );
