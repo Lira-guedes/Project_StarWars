@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Filters() {
-  const { planets, setPlanets } = useContext(PlanetsContext);
+  const { planets, filteredPlanets, setfilteredPlanets } = useContext(PlanetsContext);
   const [coluna, setColuna] = useState('');
   const [operador, setOperador] = useState('');
   const [input, setInput] = useState(0);
@@ -10,23 +10,21 @@ function Filters() {
   const handleClick = () => {
     let filtered = planets;
     if (operador === 'maior que') {
-      filtered = planets.filter((elem) => Number(elem[coluna]) > Number(input));
+      filtered = filteredPlanets.filter((elem) => Number(elem[coluna]) > Number(input));
     } else if (operador === 'menor que') {
-      filtered = planets.filter((elem) => Number(elem[coluna]) < Number(input));
+      filtered = filteredPlanets.filter((elem) => Number(elem[coluna]) < Number(input));
     } else if (operador === 'igual a') {
-      filtered = planets.filter((elem) => Number(elem[coluna]) === Number(input));
+      filtered = filteredPlanets.filter((elem) => Number(elem[coluna]) === Number(input));
     }
-    return setPlanets(filtered);
+    return setfilteredPlanets(filtered);
   };
 
   const handleColuna = ({ target }) => {
     setColuna(target.value);
   };
-
   const handleOperador = ({ target }) => {
     setOperador(target.value);
   };
-
   const handleInput = ({ target }) => {
     setInput(target.value);
   };
@@ -63,8 +61,15 @@ function Filters() {
         value={ input }
         onChange={ handleInput }
       />
-
       <button data-testid="button-filter" onClick={ handleClick }> Filtrar </button>
+
+      {filteredPlanets.map((index, elem) => (
+        <div key={ index }>
+          <span>{elem.column}</span>
+          <span>{elem.comparison}</span>
+          <span>{elem.value}</span>
+        </div>
+      ))}
     </div>
   );
 }
