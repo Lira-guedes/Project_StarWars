@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Filters() {
@@ -7,7 +7,9 @@ function Filters() {
   const [operador, setOperador] = useState('maior que');
   const [input, setInput] = useState(0);
   const [filters, setFilters] = useState([]);
-
+  const [columnsOptions, setColumnsOptions] = useState(
+    ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
+  );
   const handleClick = () => {
     setFilters([...filters, { coluna, operador, input }]);
     const filtered = planets.filter((elem) => {
@@ -18,7 +20,8 @@ function Filters() {
       }
       return Number(elem[coluna]) === Number(input);
     });
-    return setPlanets(filtered);
+    setPlanets(filtered);
+    setColumnsOptions(columnsOptions.filter((elem) => elem !== coluna));
   };
 
   const handleColuna = ({ target }) => {
@@ -31,6 +34,10 @@ function Filters() {
     setInput(target.value);
   };
 
+  useEffect(() => {
+    setColuna(columnsOptions[0]);
+  }, [columnsOptions]);
+
   return (
     <div>
       <label htmlFor="coluna"> Coluna: </label>
@@ -39,11 +46,13 @@ function Filters() {
         value={ coluna }
         onChange={ handleColuna }
       >
-        <option>population</option>
-        <option>orbital_period</option>
-        <option>diameter</option>
-        <option>rotation_period</option>
-        <option>surface_water</option>
+        {
+          columnsOptions.map((option) => (
+            <option key={ option } value={ option }>
+              {option}
+            </option>
+          ))
+        }
       </select>
 
       <label htmlFor="operador"> Operador: </label>
