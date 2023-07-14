@@ -2,21 +2,23 @@ import React, { useState, useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Filters() {
-  const { planets, filteredPlanets, setfilteredPlanets } = useContext(PlanetsContext);
-  const [coluna, setColuna] = useState('');
-  const [operador, setOperador] = useState('');
+  const { planets, setPlanets } = useContext(PlanetsContext);
+  const [coluna, setColuna] = useState('population');
+  const [operador, setOperador] = useState('maior que');
   const [input, setInput] = useState(0);
+  const [filters, setFilters] = useState([]);
 
   const handleClick = () => {
-    let filtered = planets;
-    if (operador === 'maior que') {
-      filtered = filteredPlanets.filter((elem) => Number(elem[coluna]) > Number(input));
-    } else if (operador === 'menor que') {
-      filtered = filteredPlanets.filter((elem) => Number(elem[coluna]) < Number(input));
-    } else if (operador === 'igual a') {
-      filtered = filteredPlanets.filter((elem) => Number(elem[coluna]) === Number(input));
-    }
-    return setfilteredPlanets(filtered);
+    setFilters([...filters, { coluna, operador, input }]);
+    const filtered = planets.filter((elem) => {
+      if (operador === 'maior que') {
+        return Number(elem[coluna]) > Number(input);
+      } if (operador === 'menor que') {
+        return Number(elem[coluna]) < Number(input);
+      }
+      return Number(elem[coluna]) === Number(input);
+    });
+    return setPlanets(filtered);
   };
 
   const handleColuna = ({ target }) => {
@@ -37,11 +39,11 @@ function Filters() {
         value={ coluna }
         onChange={ handleColuna }
       >
-        <option> population </option>
-        <option> orbital_period </option>
-        <option> diameter </option>
-        <option> rotation_period </option>
-        <option> surface_water </option>
+        <option>population</option>
+        <option>orbital_period</option>
+        <option>diameter</option>
+        <option>rotation_period</option>
+        <option>surface_water</option>
       </select>
 
       <label htmlFor="operador"> Operador: </label>
@@ -50,9 +52,9 @@ function Filters() {
         value={ operador }
         onChange={ handleOperador }
       >
-        <option> maior que </option>
-        <option> menor que </option>
-        <option> igual a </option>
+        <option>maior que</option>
+        <option>menor que</option>
+        <option>igual a</option>
       </select>
 
       <input
@@ -63,11 +65,11 @@ function Filters() {
       />
       <button data-testid="button-filter" onClick={ handleClick }> Filtrar </button>
 
-      {filteredPlanets.map((index, elem) => (
+      {filters && filters.map((elem, index) => (
         <div key={ index }>
-          <span>{elem.column}</span>
-          <span>{elem.comparison}</span>
-          <span>{elem.value}</span>
+          <span>{elem.coluna}</span>
+          <span>{elem.operador}</span>
+          <span>{elem.input}</span>
         </div>
       ))}
     </div>

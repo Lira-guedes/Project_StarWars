@@ -6,13 +6,14 @@ function Table() {
   const { planets } = useContext(PlanetsContext);
   const [filter, setFilter] = useState('');
 
-  const filterPlanets = planets.filter(
-    (elem) => elem.name.toLowerCase().includes(filter.toLowerCase()),
-  );
-
   const handleChange = ({ target }) => {
     setFilter(target.value);
   };
+  console.log(planets);
+  const filterPlanets = planets.length > 0 && planets.filter(
+    (elem) => elem.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+
   return (
     <div>
       <h1> StarWars Planets Search </h1>
@@ -27,7 +28,7 @@ function Table() {
       <Filter />
       <table>
         <thead>
-          <th>
+          <tr>
             <th> Nome </th>
             <th> Rotation Period </th>
             <th> Orbital Period </th>
@@ -41,10 +42,10 @@ function Table() {
             <th> Created </th>
             <th> Edited </th>
             <th> Url </th>
-          </th>
+          </tr>
         </thead>
         <tbody>
-          { planets && filterPlanets.map((elem) => (
+          {planets.length > 0 && filterPlanets.map((elem) => (
             <tr key={ elem.name }>
               <td>{ elem.name }</td>
               <td>{ elem.rotation_period }</td>
