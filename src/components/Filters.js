@@ -42,6 +42,7 @@ function Filters() {
     <div>
       <label htmlFor="coluna"> Coluna: </label>
       <select
+        id="coluna"
         data-testid="column-filter"
         value={ coluna }
         onChange={ handleColuna }
@@ -57,6 +58,7 @@ function Filters() {
 
       <label htmlFor="operador"> Operador: </label>
       <select
+        id="operador"
         data-testid="comparison-filter"
         value={ operador }
         onChange={ handleOperador }
