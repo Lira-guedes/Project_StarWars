@@ -53,6 +53,7 @@ describe(' ', () => {
       expect(screen.getByText(/Hoth/)).toBeInTheDocument();
     }, { timeout: 10000 });
   });
+
   test('Testando Update de Valores dos Filtros', () => {
     render(<App />);
     const column = screen.getByTestId('column-filter');
@@ -69,12 +70,12 @@ describe(' ', () => {
     // expect(value.value).toBe('1234567');
   });
 
-  test('Testando Filtros de coluna', async () => {
+  test('Testando Filtros de Coluna Operador e Value', async () => {
     render(<App />);
     const column = screen.getByTestId('column-filter');
     const comparison = screen.getByTestId('comparison-filter');
     const value = screen.getByTestId('value-filter');
-      const button = screen.getByTestId('button-filter');
+    const button = screen.getByTestId('button-filter');
 
     expect(comparison).toBeInTheDocument();
     expect(value).toBeInTheDocument();
@@ -92,6 +93,29 @@ describe(' ', () => {
       expect(screen.getByText(/Tatooine/)).toBeInTheDocument();
     }, { timeout: 10000 });
 
+    userEvent.clear(value)
+
+    userEvent.selectOptions(column, 'surface_water');
+    userEvent.selectOptions(comparison, 'menor que');
+    userEvent.type(value, '40');
+    userEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Tatooine/)).toBeInTheDocument();
+      expect(screen.getByText(/Yavin/)).toBeInTheDocument();
+      expect(screen.getByText(/Dagobah/)).toBeInTheDocument();
+    }, { timeout: 10000 });
+
+    userEvent.clear(value)
+
+    userEvent.selectOptions(column, 'rotation_period');
+    userEvent.selectOptions(comparison, 'igual a');
+    userEvent.type(value, '27');
+    userEvent.click(button);
+
+    // await waitFor(() => {
+    //   expect(screen.getByText(/Kamino/i)).toBeInTheDocument();
+    // }, { timeout: 10000 });
   });
 
   test('Testando Filtros por Nome', async () => {
