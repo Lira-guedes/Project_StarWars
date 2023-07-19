@@ -6,6 +6,7 @@ import fetchApi from './service/fetchApi';
 
 function App() {
   const [planets, setPlanets] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -13,12 +14,15 @@ function App() {
       const data = await response.json();
       const planet = data.results.filter((elem) => delete elem.residents);
       setPlanets(planet);
+      setFilteredPlanets(planet);
     };
     fetch();
   }, []);
 
   return (
-    <PlanetsContext.Provider value={ { planets, setPlanets } }>
+    <PlanetsContext.Provider
+      value={ { planets, setPlanets, filteredPlanets, setFilteredPlanets } }
+    >
       <Table />
     </PlanetsContext.Provider>
   );

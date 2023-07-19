@@ -3,14 +3,13 @@ import PlanetsContext from '../context/PlanetsContext';
 import Filter from './Filters';
 
 function Table() {
-  const { planets } = useContext(PlanetsContext);
+  const { filteredPlanets } = useContext(PlanetsContext);
   const [filter, setFilter] = useState('');
 
   const handleChange = ({ target }) => {
     setFilter(target.value);
   };
-  console.log(planets);
-  const filterPlanets = planets.length > 0 && planets.filter(
+  const filterPlanets = filteredPlanets.length > 0 && filteredPlanets.filter(
     (elem) => elem.name.toLowerCase().includes(filter.toLowerCase()),
   );
 
@@ -45,7 +44,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {planets.length > 0 && filterPlanets.map((elem) => (
+          {filteredPlanets.length > 0 && filterPlanets.map((elem) => (
             <tr key={ elem.name }>
               <td>{ elem.name }</td>
               <td>{ elem.rotation_period }</td>
