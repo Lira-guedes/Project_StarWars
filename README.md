@@ -1,10 +1,18 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+# StarWars
+<p>
+Este projeto foi desenvolvido para aplicar os conhecimentos adquiridos após o aprendizado de recursos avançados de React, como Context API e Hooks.
+</p>
+
+<h3>O que foi feito?</h3>
+<ul>
+  <li>Desenvolvimento de uma aplicação que consulta uma API para recuperar dados dos planetas do universo Star Wars.</li>
+  <li>Criação de uma tabela interativa com filtros aplicáveis aos dados retornados pela API, como população, período orbital, diâmetro, entre outros.</li>
+  <li>Aplicação de custom hooks e Context API para gerenciar e organizar o estado da aplicação.</li>
+</ul>
+
+<h3>Tecnologias e Conhecimentos Usados</h3>
+<ul>
+  <li>Componentes de classe em React.</li>
+  <li>Custom hooks para manipulação de estado e lógica reutilizável.</li>
+  <li>Context API para compartilhamento de estado entre componentes sem a necessidade de passar props manualmente.</li>
+</ul>
